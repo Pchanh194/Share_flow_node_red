@@ -1,0 +1,339 @@
+[
+    {
+        "id": "3b3e4ffe93b68331",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "a10c272d94329555",
+        "type": "puppeteer-browser-launch",
+        "z": "3b3e4ffe93b68331",
+        "timeout": 30000,
+        "slowMo": 0,
+        "headless": 0,
+        "debugport": "50184",
+        "devtools": false,
+        "cookies": "",
+        "name": "",
+        "executablePath": "C:\\\\Users\\\\admin\\\\AppData\\\\Local\\\\Programs\\\\GPMLogin\\\\gpm_browser\\\\gpm_browser_chromium_core_121\\\\chrome.exe",
+        "x": 320,
+        "y": 280,
+        "wires": [
+            [
+                "51fac4286fff93e4"
+            ]
+        ]
+    },
+    {
+        "id": "51fac4286fff93e4",
+        "type": "puppeteer-page-goto",
+        "z": "3b3e4ffe93b68331",
+        "name": "URL Start",
+        "url": "https://github.com/buiducduy111/GPMLoginApiV2",
+        "urltype": "str",
+        "waitUntil": "networkidle2",
+        "x": 320,
+        "y": 360,
+        "wires": [
+            [
+                "d515635ad7a2a489"
+            ]
+        ]
+    },
+    {
+        "id": "17f51818f643bf7b",
+        "type": "inject",
+        "z": "3b3e4ffe93b68331",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 140,
+        "y": 280,
+        "wires": [
+            [
+                "a10c272d94329555"
+            ]
+        ]
+    },
+    {
+        "id": "9fe718c6eaaf1f65",
+        "type": "puppeteer-browser-close",
+        "z": "3b3e4ffe93b68331",
+        "name": "",
+        "x": 540,
+        "y": 460,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f2271d95bf9e6d2d",
+        "type": "http request",
+        "z": "3b3e4ffe93b68331",
+        "name": "Start profiles",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://127.0.0.1:19995/api/v3/profiles/start/bfec04b5-3f2d-4d74-9d5d-acbf230e035c",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 330,
+        "y": 200,
+        "wires": [
+            [
+                "c78a77b6aaca40be"
+            ]
+        ]
+    },
+    {
+        "id": "0acc9c2487d3f51c",
+        "type": "inject",
+        "z": "3b3e4ffe93b68331",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 140,
+        "y": 200,
+        "wires": [
+            [
+                "f2271d95bf9e6d2d"
+            ]
+        ]
+    },
+    {
+        "id": "ca42f4bc3a953785",
+        "type": "http request",
+        "z": "3b3e4ffe93b68331",
+        "name": "Get Profiles",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://127.0.0.1:19995/api/v3/profiles",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 330,
+        "y": 120,
+        "wires": [
+            [
+                "c78a77b6aaca40be"
+            ]
+        ]
+    },
+    {
+        "id": "770fb11299c45008",
+        "type": "inject",
+        "z": "3b3e4ffe93b68331",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 140,
+        "y": 120,
+        "wires": [
+            [
+                "ca42f4bc3a953785"
+            ]
+        ]
+    },
+    {
+        "id": "c78a77b6aaca40be",
+        "type": "debug",
+        "z": "3b3e4ffe93b68331",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 520,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "d515635ad7a2a489",
+        "type": "puppeteer-page-screenshot",
+        "z": "3b3e4ffe93b68331",
+        "name": "",
+        "fullpage": true,
+        "x": 330,
+        "y": 460,
+        "wires": [
+            [
+                "9fe718c6eaaf1f65"
+            ]
+        ]
+    },
+    {
+        "id": "ffd691968679218f",
+        "type": "exec",
+        "z": "3b3e4ffe93b68331",
+        "command": "ping",
+        "addpay": "",
+        "append": "www.google.com",
+        "useSpawn": "false",
+        "timer": "10",
+        "winHide": false,
+        "oldrc": false,
+        "name": "",
+        "x": 330,
+        "y": 740,
+        "wires": [
+            [
+                "a6d238047ef4eae0"
+            ],
+            [
+                "a6d238047ef4eae0"
+            ],
+            [
+                "a6d238047ef4eae0"
+            ]
+        ]
+    },
+    {
+        "id": "df8bae9c999dfe97",
+        "type": "inject",
+        "z": "3b3e4ffe93b68331",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 140,
+        "y": 740,
+        "wires": [
+            [
+                "ffd691968679218f"
+            ]
+        ]
+    },
+    {
+        "id": "a6d238047ef4eae0",
+        "type": "debug",
+        "z": "3b3e4ffe93b68331",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 540,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "0cc1480f535e1d6d",
+        "type": "inject",
+        "z": "3b3e4ffe93b68331",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 840,
+        "y": 120,
+        "wires": [
+            [
+                "75764104badad2b7"
+            ]
+        ]
+    },
+    {
+        "id": "75764104badad2b7",
+        "type": "debug",
+        "z": "3b3e4ffe93b68331",
+        "name": "debug 3",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1050,
+        "y": 120,
+        "wires": []
+    }
+]
