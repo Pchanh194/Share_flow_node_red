@@ -1,0 +1,84 @@
+<script type="text/javascript">
+    RED.nodes.registerType('profile-manager',{
+        category: 'Puppeteer',
+        color: '#a6bbcf',
+        defaults: {
+            name: {value:""},
+            timeout: {value: 30000},
+            slowMo: {value: 0},
+            headless: {value: "false"},
+            debugport: {value: 0},
+            devtools: {value: "false"},
+            cookies: {value: ""},
+            executablePath: {value: ""}
+        },
+        inputs:1,
+        outputs:1,
+        icon: "font-awesome/fa-user-secret",
+        label: function() {
+            return this.name||"Profile Manager";
+        },
+        oneditprepare: function() {
+            $("#node-input-headless").prop('checked', this.headless === "true");
+            $("#node-input-devtools").prop('checked', this.devtools === "true");
+        },
+        oneditsave: function() {
+            this.headless = $("#node-input-headless").prop('checked');
+            this.devtools = $("#node-input-devtools").prop('checked');
+        }
+    });
+</script>
+
+<script type="text/html" data-template-name="profile-manager">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Profile</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-timeout"><i class="fa fa-clock-o"></i> Timeout</label>
+        <input type="number" id="node-input-timeout" placeholder="30000">
+        <span>milliseconds</span>
+    </div>
+    <div class="form-row">
+        <label for="node-input-slowMo"><i class="fa fa-step-forward"></i> Slow Motion</label>
+        <input type="number" id="node-input-slowMo" placeholder="0">
+        <span>milliseconds</span>
+    </div>
+    <div class="form-row">
+        <label for="node-input-headless"><i class="fa fa-eye-slash"></i> Headless</label>
+        <input type="checkbox" id="node-input-headless" style="display:inline-block; width:auto; vertical-align:top;">
+    </div>
+    <div class="form-row">
+        <label for="node-input-debugport"><i class="fa fa-bug"></i> Debug Port</label>
+        <input type="number" id="node-input-debugport" placeholder="0">
+    </div>
+    <div class="form-row">
+        <label for="node-input-devtools"><i class="fa fa-wrench"></i> DevTools</label>
+        <input type="checkbox" id="node-input-devtools" style="display:inline-block; width:auto; vertical-align:top;">
+    </div>
+    <div class="form-row">
+        <label for="node-input-cookies"><i class="fa fa-cookie-bite"></i> Cookies</label>
+        <input type="text" id="node-input-cookies" placeholder="[{Cookie}, {Cookie}, ...]">
+    </div>
+    <div class="form-row">
+        <label for="node-input-executablePath"><i class="fa fa-file-code"></i> Executable Path</label>
+        <input type="text" id="node-input-executablePath" placeholder="Path to Chrome executable">
+    </div>
+</script>
+
+<script type="text/html" data-help-name="profile-manager">
+    <p>A node to manage browser profiles using GPMLogin API and Puppeteer.</p>
+    <h3>Inputs</h3>
+    <dl class="message-properties">
+        <dt>payload <span class="property-type">object | string</span></dt>
+        <dd>Optional. Can contain cookies to be set on the browser.</dd>
+    </dl>
+    <h3>Outputs</h3>
+    <dl class="message-properties">
+        <dt>puppeteer <span class="property-type">object</span></dt>
+        <dd>Contains <code>browser</code> and <code>page</code> objects from Puppeteer.</dd>
+    </dl>
+    <h3>Details</h3>
+    <p>This node combines the functionality of profile management from GPMLogin with browser launching capabilities of Puppeteer. It allows for customization of browser launch parameters while automating the profile selection and startup process.</p>
+    <p>The node will attempt to connect to an existing browser instance if available, otherwise it will launch a new one based on the provided configuration.</p>
+</script>
