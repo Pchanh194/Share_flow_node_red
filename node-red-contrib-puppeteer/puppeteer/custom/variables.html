@@ -1,0 +1,80 @@
+<script type="text/javascript">
+    RED.nodes.registerType('variables',{
+        category: 'function',
+        color: '#a6bbcf',
+        defaults: {
+            name: {value: ""},
+            variables: {value: [], validate: function(v) { return true; }}
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: "font-awesome/fa-list",
+        label: function() {
+            return this.name || "Variables";
+        },
+        oneditprepare: function() {
+            var node = this;
+            
+            $("#node-input-variable-container").editableList({
+                addItem: function(container, i, variable) {
+                    var row = $('<div/>').appendTo(container);
+                    
+                    $('<input/>', {class: "node-input-variable-name", type: "text", placeholder: "Name", style: "width: 30%;"})
+                        .appendTo(row)
+                        .val(variable.name);
+                        
+                    $('<input/>', {class: "node-input-variable-value", type: "text", placeholder: "Value", style: "width: 30%; margin-left: 10px;"})
+                        .appendTo(row)
+                        .val(variable.value);
+                    
+                    var scopeSelect = $('<select/>', {class: "node-input-variable-scope", style: "width: 30%; margin-left: 10px;"})
+                        .appendTo(row);
+                    
+                    $('<option></option>').val('flow').text('Flow').appendTo(scopeSelect);
+                    $('<option></option>').val('global').text('Global').appendTo(scopeSelect);
+                    
+                    scopeSelect.val(variable.scope || 'flow');
+                },
+                removable: true,
+                sortable: true
+            });
+            
+            if (node.variables) {
+                for (var i = 0; i < node.variables.length; i++) {
+                    $("#node-input-variable-container").editableList('addItem', node.variables[i]);
+                }
+            }
+        },
+        oneditsave: function() {
+            var node = this;
+            var variables = $("#node-input-variable-container").editableList('items');
+            node.variables = [];
+            variables.each(function(i) {
+                var variable = $(this);
+                node.variables.push({
+                    name: variable.find(".node-input-variable-name").val(),
+                    value: variable.find(".node-input-variable-value").val(),
+                    scope: variable.find(".node-input-variable-scope").val()
+                });
+            });
+        }
+    });
+</script>
+
+<script type="text/html" data-template-name="variables">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row" style="margin-bottom: 0px;">
+        <label><i class="fa fa-list"></i> Variables</label>
+    </div>
+    <div class="form-row node-input-variable-container-row">
+        <ol id="node-input-variable-container"></ol>
+    </div>
+</script>
+
+<script type="text/html" data-help-name="variables">
+    <p>A node for managing flow and global variables.</p>
+    <p>Define variables with their name, value, and scope (flow or global).</p>
+</script>

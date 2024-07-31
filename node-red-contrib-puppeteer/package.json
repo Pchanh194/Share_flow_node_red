@@ -1,0 +1,63 @@
+{
+  "name": "@digitalnodecom/node-red-contrib-puppeteer",
+  "version": "1.2.0",
+  "description": "NodeRED nodes to control a headless chrome with puppeteer",
+  "main": "index.js",
+  "scripts": {},
+  "author": {
+    "name": "Riste Ristov",
+    "email": "ristov@riste.mk",
+    "url": "https://riste.mk"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.7.2",
+    "puppeteer": "^22.14.0",
+    "puppeteer-extra": "^3.3.6",
+    "puppeteer-extra-plugin-adblocker": "^2.13.6",
+    "puppeteer-extra-plugin-anonymize-ua": "^2.4.6",
+    "puppeteer-extra-plugin-block-resources": "^2.4.3",
+    "puppeteer-extra-plugin-recaptcha": "^3.6.8",
+    "puppeteer-extra-plugin-stealth": "^2.11.2",
+    "puppeteer-extra-plugin-user-preferences": "^2.4.1"
+  },
+  "bugs": {
+    "url": "https://github.com/digitalnodecom/node-red-contrib-puppeteer/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/digitalnodecom/node-red-contrib-puppeteer"
+  },
+  "keywords": [
+    "chrome",
+    "browser automation",
+    "puppeteer",
+    "node-red"
+  ],
+  "node-red": {
+    "version": ">=2.0.0",
+    "nodes": {
+      "puppeteer-browser-launch": "puppeteer/browser/launch.js",
+      "puppeteer-browser-close": "puppeteer/browser/close.js",
+      "puppeteer-browser-newPage": "puppeteer/browser/newPage.js",
+      "puppeteer-page-goto": "puppeteer/page/goto.js",
+      "puppeteer-page-screenshot": "puppeteer/page/screenshot.js",
+      "puppeteer-page-content": "puppeteer/page/content.js",
+      "puppeteer-page-click": "puppeteer/page/click.js",
+      "puppeteer-page-download": "puppeteer/page/download.js",
+      "puppeteer-page-focus": "puppeteer/page/focus.js",
+      "puppeteer-page-waitFor": "puppeteer/page/waitFor.js",
+      "puppeteer-page-getCookies": "puppeteer/page/getCookies.js",
+      "puppeteer-page-setCookies": "puppeteer/page/setCookies.js",
+      "puppeteer-page-deleteCookies": "puppeteer/page/deleteCookies.js",
+      "puppeteer-page-close": "puppeteer/page/close.js",
+      "puppeteer-page-keyboard-type": "puppeteer/page/keyboard/type.js",
+      "puppeteer-page-keyboard-press": "puppeteer/page/keyboard/press.js",
+      "puppeteer-page-get-value": "puppeteer/page/get.js",
+      "puppeteer-page-set-value": "puppeteer/page/set.js",
+      "puppeteer-page-upload": "puppeteer/page/upload.js",
+      "puppeteer-rename": "puppeteer/page/rename.js",
+      "puppeteer-variables": "puppeteer/custom/variables.js"
+    }
+  }
+}
