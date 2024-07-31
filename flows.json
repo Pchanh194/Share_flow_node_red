@@ -11,14 +11,15 @@
         "id": "a10c272d94329555",
         "type": "puppeteer-browser-launch",
         "z": "3b3e4ffe93b68331",
+        "nameOrId": "0db584a2-8b39-4d0a-8fe4-c3255f6483b2",
         "timeout": 30000,
         "slowMo": 0,
         "headless": 0,
-        "debugport": "50184",
+        "debugport": "",
         "devtools": false,
         "cookies": "",
         "name": "",
-        "executablePath": "C:\\\\Users\\\\admin\\\\AppData\\\\Local\\\\Programs\\\\GPMLogin\\\\gpm_browser\\\\gpm_browser_chromium_core_121\\\\chrome.exe",
+        "executablePath": "C:\\Users\\phamh\\AppData\\Local\\Programs\\GPMLogin\\gpm_browser\\gpm_browser_chromium_core_127\\\\chrome.exe",
         "x": 320,
         "y": 280,
         "wires": [
@@ -91,7 +92,7 @@
         "method": "GET",
         "ret": "txt",
         "paytoqs": "ignore",
-        "url": "http://127.0.0.1:19995/api/v3/profiles/start/bfec04b5-3f2d-4d74-9d5d-acbf230e035c",
+        "url": "http://127.0.0.1:19995/api/v3/profiles/start/37ab5927-3f3d-4356-801e-d56257ff96ec",
         "tls": "",
         "persist": false,
         "proxy": "",
@@ -232,7 +233,7 @@
         "oldrc": false,
         "name": "",
         "x": 330,
-        "y": 740,
+        "y": 1040,
         "wires": [
             [
                 "a6d238047ef4eae0"
@@ -267,7 +268,7 @@
         "payload": "",
         "payloadType": "date",
         "x": 140,
-        "y": 740,
+        "y": 1040,
         "wires": [
             [
                 "ffd691968679218f"
@@ -288,7 +289,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 540,
-        "y": 740,
+        "y": 1040,
         "wires": []
     },
     {
@@ -335,5 +336,158 @@
         "x": 1050,
         "y": 120,
         "wires": []
+    },
+    {
+        "id": "4c7370b6cf98dc3c",
+        "type": "variables",
+        "z": "3b3e4ffe93b68331",
+        "name": "",
+        "variables": [
+            {
+                "name": "link",
+                "value": "https://github.com/hj91/node-red-contrib-context-set-get",
+                "scope": "flow"
+            },
+            {
+                "name": "link2",
+                "value": "https://github.com/hj91/node-red-contrib-data-validator",
+                "scope": "global"
+            },
+            {
+                "name": "link2flow",
+                "value": "https://github.com/hj91/node-red-contrib-data-validator",
+                "scope": "flow"
+            }
+        ],
+        "x": 320,
+        "y": 660,
+        "wires": [
+            [
+                "d220038f2cb8edee",
+                "44a9e859038c565a"
+            ]
+        ]
+    },
+    {
+        "id": "921b4452c75db381",
+        "type": "inject",
+        "z": "3b3e4ffe93b68331",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 140,
+        "y": 660,
+        "wires": [
+            [
+                "4c7370b6cf98dc3c"
+            ]
+        ]
+    },
+    {
+        "id": "d220038f2cb8edee",
+        "type": "function",
+        "z": "3b3e4ffe93b68331",
+        "name": "function 1",
+        "func": "var linkValue = {payload: flow.get(\"link\")};\nconsole.log(\"Link value:\", linkValue);\nreturn [linkValue, msg];",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 520,
+        "y": 660,
+        "wires": [
+            [
+                "c6dd25813319d5dd"
+            ]
+        ]
+    },
+    {
+        "id": "c6dd25813319d5dd",
+        "type": "debug",
+        "z": "3b3e4ffe93b68331",
+        "name": "debug 5",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 700,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "2f7e0c7b935e9884",
+        "type": "puppeteer-page-goto",
+        "z": "3b3e4ffe93b68331",
+        "name": "Link",
+        "url": "link2flow",
+        "urltype": "flow",
+        "waitUntil": "networkidle2",
+        "x": 510,
+        "y": 780,
+        "wires": [
+            [
+                "37019076ac6fec71"
+            ]
+        ]
+    },
+    {
+        "id": "37019076ac6fec71",
+        "type": "puppeteer-page-screenshot",
+        "z": "3b3e4ffe93b68331",
+        "name": "",
+        "x": 690,
+        "y": 780,
+        "wires": [
+            [
+                "eeb7e7d345ca7428"
+            ]
+        ]
+    },
+    {
+        "id": "44a9e859038c565a",
+        "type": "puppeteer-browser-launch",
+        "z": "3b3e4ffe93b68331",
+        "nameOrId": "",
+        "timeout": 30000,
+        "slowMo": 0,
+        "headless": 0,
+        "debugport": 0,
+        "devtools": false,
+        "cookies": "",
+        "name": "",
+        "executablePath": "",
+        "x": 520,
+        "y": 720,
+        "wires": [
+            [
+                "2f7e0c7b935e9884"
+            ]
+        ]
+    },
+    {
+        "id": "eeb7e7d345ca7428",
+        "type": "puppeteer-browser-close",
+        "z": "3b3e4ffe93b68331",
+        "name": "",
+        "x": 880,
+        "y": 780,
+        "wires": [
+            []
+        ]
     }
 ]
