@@ -6,8 +6,19 @@ module.exports = function (RED) {
     this.on("input", async function (msg, send, done) {
       try {
         // Parsing the provided cookies
-        let cookies = JSON.parse(
-          config.cookies !== "" ? config.cookies : JSON.stringify(msg.payload)
+
+        let cookies;
+
+        if (config.cookiesType === "flow" || config.cookiesType === "global") {
+          cookies = this.context()[config.cookiesType].get(config.cookies);
+        } else if (config.cookiesType === "str") {
+          cookies = config.cookies;
+        } else {
+          cookies = RED.util.getMessageProperty(msg, config.cookies);
+        }
+
+        cookies = JSON.parse(
+          cookies !== "" ? cookies : JSON.stringify(msg.payload)
         );
 
         // Setting the cookies

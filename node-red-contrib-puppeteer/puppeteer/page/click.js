@@ -8,19 +8,27 @@ module.exports = function (RED) {
     this.on("input", async function (msg, send, done) {
       try {
         // Parsing the selector from string input or from msg object
-        let selector =
-          nodeConfig.selectortype != "str"
-            ? eval(nodeConfig.selectortype + "." + nodeConfig.selector)
-            : nodeConfig.selector;
-        // If the type of selector is set to flow or global, it needs to be parsed differently
-        if (
-          nodeConfig.selectortype == "flow" ||
-          nodeConfig.selectortype == "global"
-        ) {
+        // let selector =
+        //   nodeConfig.selectortype != "str"
+        //     ? eval(nodeConfig.selectortype + "." + nodeConfig.selector)
+        //     : nodeConfig.selector;
+        // // If the type of selector is set to flow or global, it needs to be parsed differently
+        // if (
+        //   nodeConfig.selectortype == "flow" ||
+        //   nodeConfig.selectortype == "global"
+        // ) {
+        //   // Parsing the selector
+        //   selector = this.context()[nodeConfig.selectortype].get(nodeConfig.selectortype);
+        // }
+        let selector;
+
+        if (nodeConfig.selectortype == "flow" || nodeConfig.selectortype == "global") {
           // Parsing the selector
-          selector = this.context()[nodeConfig.selectortype].get(
-            nodeConfig.selectortype
-          );
+          selector = this.context()[nodeConfig.selectortype].get(nodeConfig.selector);
+        } else if (nodeConfig.selectortype == "str") {
+          selector = nodeConfig.selector;
+        } else {
+          selector = eval(nodeConfig.selectortype + "." + nodeConfig.selector);
         }
 
         // Waiting for the specified selector

@@ -7,52 +7,37 @@ module.exports = function (RED) {
 
     this.on("input", async function (msg, send, done) {
       try {
-        // Parsing the selector from string input or from msg object
-        let selector =
-          nodeConfig.selectortype != "str"
-            ? eval(nodeConfig.selectortype + "." + nodeConfig.selector)
-            : nodeConfig.selector;
-        // If the type of selector is set to flow or global, it needs to be parsed differently
-        if (
-          nodeConfig.selectortype == "flow" ||
-          nodeConfig.selectortype == "global"
-        ) {
-          // Parsing the selector
-          selector = this.context()[nodeConfig.selectortype].get(
-            nodeConfig.selectortype
-          );
+        // Parsing the selector from string input or from msg object        
+        let selector;
+
+        if (nodeConfig.selectortype == "flow" || nodeConfig.selectortype == "global") {
+          selector = this.context()[nodeConfig.selectortype].get(nodeConfig.selector);
+        } else if (nodeConfig.selectortype == "str") {
+          selector = nodeConfig.selector;
+        } else {
+          selector = eval(nodeConfig.selectortype + "." + nodeConfig.selector);
         }
+
 
         // Parsing the downloadPath from string input or from msg object
-        let downloadPath =
-          nodeConfig.downloadPathtype == "msg"
-            ? eval(nodeConfig.downloadPathtype + "." + nodeConfig.downloadPath)
-            : nodeConfig.downloadPath;
-        // If the type of downloadPath is set to flow or global, it needs to be parsed differently
-        if (
-          nodeConfig.downloadPathtype == "flow" ||
-          nodeConfig.downloadPathtype == "global"
-        ) {
-          // Parsing the downloadPath
-          downloadPath = this.context()[nodeConfig.downloadPathtype].get(
-            nodeConfig.downloadPath
-          );
+        let downloadPath;
+        if (nodeConfig.downloadPathtype == "flow" || nodeConfig.downloadPathtype == "global") {
+          downloadPath = this.context()[nodeConfig.downloadPathtype].get(nodeConfig.downloadPath);
+        } else if (nodeConfig.downloadPathtype == "msg") {
+          downloadPath = eval(nodeConfig.downloadPathtype + "." + nodeConfig.downloadPath)
+        } else {
+          downloadPath = nodeConfig.downloadPath
         }
 
+
         // Parsing the fileName from string input or from msg object
-        let fileName =
-          nodeConfig.fileNametype == "msg"
-            ? eval(nodeConfig.fileNametype + "." + nodeConfig.fileName)
-            : nodeConfig.fileName;
-        // If the type of fileName is set to flow or global, it needs to be parsed differently
-        if (
-          nodeConfig.fileNametype == "flow" ||
-          nodeConfig.fileNametype == "global"
-        ) {
-          // Parsing the fileName
-          fileName = this.context()[nodeConfig.fileNametype].get(
-            nodeConfig.fileName
-          );
+        let fileName;
+        if (nodeConfig.fileNametype == "flow" || nodeConfig.fileNametype == "global") {
+          fileName = this.context()[nodeConfig.fileNametype].get(nodeConfig.fileName);
+        } else if (nodeConfig.fileNametype == "msg") {
+          fileName = eval(nodeConfig.fileNametype + "." + nodeConfig.fileName)
+        } else {
+          fileName = nodeConfig.fileName
         }
 
         // If download path is defined

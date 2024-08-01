@@ -6,11 +6,23 @@ module.exports = function (RED) {
     this.on("input", async function (msg, send, done) {
       try {
         // Parsing the text
-        let text = config.text;
-        text = config.texttype == "msg" ? msg[config.text] : text;
-        text = config.texttype == "flow" ? flowContext.get(config.text) : text;
-        text =
-          config.texttype == "global" ? globalContext.get(config.text) : text;
+        let text;
+
+        if (config.texttype == "flow" || config.texttype == "global") {
+          text = this.context()[config.texttype].get(config.text);
+        } else if (config.texttype == "msg") {
+          text = RED.util.getMessageProperty(msg, config.text);
+        }
+        else {
+          text = config.text;
+        }
+
+        // let text = config.text;
+
+        // text = config.texttype == "msg" ? msg[config.text] : text;
+        // text = config.texttype == "flow" ? flowContext.get(config.text) : text;
+        // text =
+        //   config.texttype == "global" ? globalContext.get(config.text) : text;
 
         // Typing the provided text
         node.status({ fill: "blue", shape: "dot", text: `Typing ${text}` });

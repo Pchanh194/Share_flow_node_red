@@ -5,15 +5,22 @@
     defaults: {
       name: { value: "" },
       cookies: { value: "" },
+      cookiesType: { value: "str" }
     },
     inputs: 1,
     outputs: 1,
     icon: "setCookies.svg",
     label: function () {
-      let label = this.name == "" ? "Set Cookies" : this.name;
-      return label || "Set Cookies";
+      return this.name || "Set Cookies";
     },
     paletteLabel: "Set Cookies",
+    oneditprepare: function () {
+      $("#node-input-cookies").typedInput({
+        type: "str",
+        types: ["str", "msg", "flow", "global"],
+        typeField: "#node-input-cookiesType"
+      });
+    }
   });
 </script>
 
@@ -25,6 +32,8 @@
   <div class="form-row">
     <label for="node-input-cookies"><i class="fa fa-cubes"></i> Cookies</label>
     <input type="text" id="node-input-cookies" style="width:70%;" placeholder="[{Cookie}, {Cookie}, ...]" />
+    <input type="hidden" id="node-input-cookiesType" />
+
   </div>
   <div class="form-tips">
     <span data-i18n="[html]tip1">This node sets the cookies on the current page object. The input page object should be passed as <code>msg.puppeteer.page</code>. The cookies should be a list of cookie objects where each one has the following properties and they should be passed in as <code>msg.payload</code>, or if directly into the input field it should be a valid JSON list:

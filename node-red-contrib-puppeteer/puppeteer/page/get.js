@@ -6,35 +6,25 @@ module.exports = function (RED) {
     this.on("input", async function (msg, send, done) {
       try {
         // Parsing the selector from string input or from msg object
-        let selector =
-          nodeConfig.selectortype != "str"
-            ? eval(nodeConfig.selectortype + "." + nodeConfig.selector)
-            : nodeConfig.selector;
-        // If the type of selector is set to flow or global, it needs to be parsed differently
-        if (
-          nodeConfig.selectortype == "flow" ||
-          nodeConfig.selectortype == "global"
-        ) {
-          // Parsing the selector
-          selector = this.context()[nodeConfig.selectortype].get(
-            nodeConfig.selectortype
-          );
+        let selector;
+
+        if (nodeConfig.selectortype == "flow" || nodeConfig.selectortype == "global") {
+          selector = this.context()[nodeConfig.selectortype].get(nodeConfig.selector);
+        } else if (nodeConfig.selectortype == "str") {
+          selector = nodeConfig.selector;
+        } else {
+          selector = eval(nodeConfig.selectortype + "." + nodeConfig.selector);
         }
 
         // Parsing the property from string input or from msg object
-        let property =
-          nodeConfig.propertytype != "str"
-            ? eval(nodeConfig.propertytype + "." + nodeConfig.property)
-            : nodeConfig.property;
-        // If the type of property is set to flow or global, it needs to be parsed differently
-        if (
-          nodeConfig.propertytype == "flow" ||
-          nodeConfig.propertytype == "global"
-        ) {
-          // Parsing the property
-          property = this.context()[nodeConfig.propertytype].get(
-            nodeConfig.propertytype
-          );
+        let property;
+
+        if (nodeConfig.propertytype == "flow" || nodeConfig.propertytype == "global") {
+          property = this.context()[nodeConfig.propertytype].get(nodeConfig.property);
+        } else if (nodeConfig.propertytype == "str") {
+          property = nodeConfig.property;
+        } else {
+          property = eval(nodeConfig.propertytype + "." + nodeConfig.property);
         }
 
         // Waiting for the provided selector

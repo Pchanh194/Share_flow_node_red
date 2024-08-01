@@ -6,16 +6,14 @@ module.exports = function (RED) {
     this.on("input", async function (msg, send, done) {
       try {
         // Parsing the selector from string input or from msg object
-        let selector =
-          config.selectortype != "str"
-            ? eval(config.selectortype + "." + config.selector)
-            : config.selector;
-        // If the type of selector is set to flow or global, it needs to be parsed differently
+        let selector;
+
         if (config.selectortype == "flow" || config.selectortype == "global") {
-          // Parsing the selector
-          selector = this.context()[config.selectortype].get(
-            config.selectortype
-          );
+          selector = this.context()[config.selectortype].get(config.selector);
+        } else if (config.selectortype == "str") {
+          selector = config.selector;
+        } else {
+          selector = eval(config.selectortype + "." + config.selector);
         }
 
         // Waiting for provided selector
