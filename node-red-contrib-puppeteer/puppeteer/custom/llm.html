@@ -1,0 +1,107 @@
+<script type="text/javascript">
+    RED.nodes.registerType('llm',{
+        category: 'function',
+        color: '#a6bbcf',
+        defaults: {
+            name: {value:""},
+            apiKey: {value:"", required:true},
+            model: {value:"gpt-3.5-turbo"},
+            inputType: {value:"msg"},
+            inputVariable: {value:"payload"},
+            promptType: {value:"str"},
+            prompt: {value:""},
+            outputFormat: {value:"text"}
+        },
+        inputs:1,
+        outputs:1,
+        icon: "file.png",
+        label: function() {
+            return this.name||"LLM";
+        },
+        oneditprepare: function() {
+            $("#node-input-inputVariable").typedInput({
+                type: "str",
+                types: ["msg", "flow", "global", "str"],
+                typeField: "#node-input-inputType"
+            });
+            $("#node-input-prompt").typedInput({
+                type: "str",
+                types: ["msg", "flow", "global", "str"],
+                typeField: "#node-input-promptType"
+            });
+        }
+    });
+</script>
+
+<script type="text/html" data-template-name="llm">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-apiKey"><i class="fa fa-key"></i> API Key</label>
+        <input type="password" id="node-input-apiKey">
+    </div>
+    <div class="form-row">
+        <label for="node-input-model"><i class="fa fa-cog"></i> Model</label>
+        <select id="node-input-model">
+            <option value="gpt-3.5-turbo">GPT-3.5 Turbo</option>
+            <option value="gpt-4">GPT-4</option>
+        </select>
+    </div>
+    <div class="form-row">
+        <label for="node-input-inputVariable"><i class="fa fa-sign-in"></i> Input</label>
+        <input type="text" id="node-input-inputVariable">
+        <input type="hidden" id="node-input-inputType">
+    </div>
+    <div class="form-row">
+        <label for="node-input-prompt"><i class="fa fa-file-text-o"></i> Prompt</label>
+        <input type="text" id="node-input-prompt">
+        <input type="hidden" id="node-input-promptType">
+    </div>
+    <div class="form-row">
+        <label for="node-input-outputFormat"><i class="fa fa-file-o"></i> Output Format</label>
+        <select id="node-input-outputFormat">
+            <option value="text">Text</option>
+            <option value="markdown">Markdown</option>
+            <option value="json">JSON</option>
+        </select>
+    </div>
+</script>
+
+<script type="text/html" data-help-name="llm">
+    <p>Node này cho phép bạn tương tác với các mô hình ngôn ngữ của OpenAI như GPT-3.5 và GPT-4.</p>
+    
+    <h3>Cách sử dụng</h3>
+    <ol>
+        <li><strong>API Key:</strong> Nhập API key của OpenAI của bạn.</li>
+        <li><strong>Model:</strong> Chọn mô hình AI bạn muốn sử dụng.</li>
+        <li><strong>Input:</strong> Chọn nguồn dữ liệu đầu vào (msg, flow, global, hoặc string).</li>
+        <li><strong>Prompt:</strong> Nhập prompt của bạn hoặc chọn nguồn prompt (msg, flow, global, hoặc string). Bạn có thể sử dụng cú pháp {{tên_biến}} để chèn giá trị từ Input.</li>
+        <li><strong>Output Format:</strong> Chọn định dạng đầu ra mong muốn.</li>
+    </ol>
+
+    <h3>Sử dụng biến trong Prompt</h3>
+    <p>Bạn có thể sử dụng cú pháp {{tên_biến}} trong prompt để chèn giá trị từ Input. Ví dụ:</p>
+    <pre>Xin chào {{tên}}, bạn {{tuổi}} tuổi. Hãy kể về một ngày bình thường của bạn.</pre>
+    <p>Nếu Input là một đối tượng có thuộc tính 'tên' và 'tuổi', chúng sẽ được thay thế trong prompt.</p>
+
+    <h3>Đầu vào</h3>
+    <dl class="message-properties">
+        <dt>payload <span class="property-type">string | object</span></dt>
+        <dd>Dữ liệu đầu vào để xử lý bởi mô hình AI.</dd>
+    </dl>
+
+    <h3>Đầu ra</h3>
+    <dl class="message-properties">
+        <dt>payload <span class="property-type">string | object</span></dt>
+        <dd>Phản hồi từ mô hình AI theo định dạng được chỉ định.</dd>
+    </dl>
+
+    <h3>Lưu ý</h3>
+    <ul>
+        <li>Đảm bảo rằng bạn có đủ credits trong tài khoản OpenAI của mình.</li>
+        <li>Các mô hình khác nhau có thể cho kết quả và chi phí khác nhau.</li>
+        <li>Hãy cẩn thận khi sử dụng thông tin nhạy cảm trong prompt.</li>
+    </ul>
+</script>
