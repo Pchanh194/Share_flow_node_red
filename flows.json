@@ -16,6 +16,52 @@
         "env": []
     },
     {
+        "id": "7aaaa2d59f922963",
+        "type": "tab",
+        "label": "Flow 3",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "781af104a728992f",
+        "type": "auto_layout_config",
+        "name": "AutoLayout",
+        "algorithm": "dagre_lr",
+        "settings": "{\"dagre_lr\":{\"rankdir\":\"LR\",\"marginx\":20,\"marginy\":20,\"nodesep\":30,\"ranksep\":50},\"dagre_longest_path\":{\"rankdir\":\"LR\",\"marginx\":2,\"marginy\":2,\"ranker\":\"longest-path\",\"nodesep\":2,\"ranksep\":2},\"elkjs_mr_tree\":{\"algorithm\":\"mrtree\",\"childAreaHeight\":4500,\"childAreaWidth\":4500,\"org.eclipse.elk.direction\":\"RIGHT\"},\"elkjs_layered_upwards\":{\"algorithm\":\"org.eclipse.elk.layered\",\"elk.direction\":\"UP\",\"cycleBreaking.strategy\":\"INTERACTIVE\",\"layering.strategy\":\"INTERACTIVE\",\"crossingMinimization.semiInteractive\":true,\"separateConnectedComponents\":true,\"nodePlacement.strategy\":\"NETWORK_SIMPLEX\",\"spacing.nodeNode\":70,\"spacing.nodeNodeBetweenLayers\":25,\"spacing.edgeNode\":25,\"spacing.edgeNodeBetweenLayers\":20,\"spacing.edgeEdge\":20,\"spacing.edgeEdgeBetweenLayers\":15,\"elk.hierarchyHandling\":\"INCLUDE_CHILDREN\",\"elk.layered.spacing.edgeNodeBetweenLayers\":40,\"elk.layered.nodePlacement.bk.fixedAlignment\":\"BALANCED\",\"layering.layerConstraint\":\"FIRST\"},\"elkjs_layered_downwards\":{\"algorithm\":\"org.eclipse.elk.layered\",\"elk.direction\":\"DOWN\",\"cycleBreaking.strategy\":\"INTERACTIVE\",\"layering.strategy\":\"INTERACTIVE\",\"crossingMinimization.semiInteractive\":true,\"separateConnectedComponents\":true,\"nodePlacement.strategy\":\"NETWORK_SIMPLEX\",\"spacing.nodeNode\":70,\"spacing.nodeNodeBetweenLayers\":25,\"spacing.edgeNode\":25,\"spacing.edgeNodeBetweenLayers\":20,\"spacing.edgeEdge\":20,\"spacing.edgeEdgeBetweenLayers\":15},\"elkjs_box\":{\"algorithm\":\"org.eclipse.elk.box\",\"childAreaHeight\":3000,\"childAreaWidth\":3000},\"pull_request_2267\":{}}"
+    },
+    {
+        "id": "671d0dd2229bdca5",
+        "type": "FlowHubCfg",
+        "apiToken": "",
+        "apiTokenType": "",
+        "fullname": "",
+        "email": "",
+        "flowid": "",
+        "flowrevision": "",
+        "notab": false,
+        "pushcomment": "",
+        "pushnewflows": false,
+        "forcepush": false,
+        "tokens": [],
+        "flowrevisions": {}
+    },
+    {
+        "id": "8cd2468ff9c8b7b3",
+        "type": "NodeFactorySidebarCfg",
+        "pkgname": "node-red-dashboard",
+        "pkgversion": "latest",
+        "otptype": "totp",
+        "algorithm": "SHA1",
+        "secret": "OTP_SECRET",
+        "secretType": "env",
+        "issuer": "",
+        "otplabel": "",
+        "digits": 6,
+        "counter": 0,
+        "period": 30
+    },
+    {
         "id": "a10c272d94329555",
         "type": "puppeteer-browser-launch",
         "z": "3b3e4ffe93b68331",
@@ -1201,5 +1247,111 @@
         "x": 700,
         "y": 1020,
         "wires": []
+    },
+    {
+        "id": "d1dc3fabaab25efb",
+        "type": "llm",
+        "z": "7aaaa2d59f922963",
+        "name": "OpenAI",
+        "apiKey": "",
+        "model": "gpt-3.5-turbo",
+        "inputType": "str",
+        "inputVariable": "",
+        "promptType": "flow",
+        "prompt": "prompt",
+        "outputFormat": "json",
+        "x": 560,
+        "y": 180,
+        "wires": [
+            [
+                "27bf8eceb61d5f85",
+                "49b206da4860208a"
+            ]
+        ]
+    },
+    {
+        "id": "2818c81f617600dc",
+        "type": "inject",
+        "z": "7aaaa2d59f922963",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 180,
+        "y": 180,
+        "wires": [
+            [
+                "7b9f31adf3eda221"
+            ]
+        ]
+    },
+    {
+        "id": "49b206da4860208a",
+        "type": "debug",
+        "z": "7aaaa2d59f922963",
+        "name": "debug 14",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 860,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "27bf8eceb61d5f85",
+        "type": "file",
+        "z": "7aaaa2d59f922963",
+        "name": "Output file",
+        "filename": "D:\\00_OneDrive\\OneDrive\\002.Rede\\Rede_Puppeteer\\Share_flow_node_red\\LLM-output\\output.txt",
+        "filenameType": "str",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "false",
+        "encoding": "none",
+        "x": 710,
+        "y": 240,
+        "wires": [
+            [
+                "49b206da4860208a"
+            ]
+        ]
+    },
+    {
+        "id": "7b9f31adf3eda221",
+        "type": "variables",
+        "z": "7aaaa2d59f922963",
+        "name": "",
+        "variables": [
+            {
+                "name": "prompt",
+                "value": "Hãy giới thiệu cho tôi các ý tưởng cải thiện flow NodeRED hoặc các node tính năng giống Coze AI phục vụ LLM flow.",
+                "scope": "flow"
+            }
+        ],
+        "x": 360,
+        "y": 180,
+        "wires": [
+            [
+                "d1dc3fabaab25efb"
+            ]
+        ]
     }
 ]

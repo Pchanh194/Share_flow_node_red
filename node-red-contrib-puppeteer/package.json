@@ -11,7 +11,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "axios": "^1.7.2",
+    "axios": "^1.7.3",
     "puppeteer": "^22.14.0",
     "puppeteer-extra": "^3.3.6",
     "puppeteer-extra-plugin-adblocker": "^2.13.6",
@@ -57,7 +57,8 @@
       "puppeteer-page-set-value": "puppeteer/page/set.js",
       "puppeteer-page-upload": "puppeteer/page/upload.js",
       "puppeteer-rename": "puppeteer/page/rename.js",
-      "puppeteer-variables": "puppeteer/custom/variables.js"
+      "puppeteer-variables": "puppeteer/custom/variables.js",
+      "puppeteer-llm": "puppeteer/custom/llm.js"
     }
   }
 }
